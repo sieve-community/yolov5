@@ -1,4 +1,4 @@
-model_version: "0.0.1"
+model_version: "0.0.1.1"
 build:
   gpu: true
   system_packages:
@@ -25,6 +25,6 @@ build:
     - "uuid==1.30"
     - "shapely==1.8.2"
 predict: "predictor.py:Yolo"
-model_name: "yolo"
-private: true
+model_name: "yolo-object-detector"
+private: false
 iteration: "video"
