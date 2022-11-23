@@ -6,13 +6,15 @@ from shapely import geometry
 
 class Yolo(TemporalPredictor):
     def setup(self):
-        self.yolo_model = torch.hub.load('ultralytics/yolov5', 'yolov5m')
+        self.yolo_model = torch.hub.load('ultralytics/yolov5', 'yolov5l')
+        self.yolo_model.conf = 0.25
     
     def predict(self, frame: FrameSingleObject, metadata: UserMetadata) -> List[SingleObject]:
         frame_number = frame.get_temporal().frame_number
         frame_data = frame.get_temporal().get_array()
         results = self.yolo_model(frame_data)
         output_objects = self.postprocess_yolo(results, frame_number)
+        
         return output_objects
 
     def postprocess_yolo(self, results, frame_number: int) -> List[SingleObject]:
